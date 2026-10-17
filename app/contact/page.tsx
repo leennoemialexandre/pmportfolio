@@ -16,7 +16,7 @@ export default function ContactPage() {
           <p className="kicker">Contact</p>
           <h1 className="display-l">Let&rsquo;s talk products.</h1>
           <p className="lede">
-            I&rsquo;m looking for Associate Product Manager roles, with product operations, strategy, and BizOps as close seconds. Email is the fastest way to
+            I&rsquo;m looking for Associate Product Manager roles. Email is the fastest way to
             reach me.
           </p>
         </div>

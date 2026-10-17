@@ -174,6 +174,35 @@ export const pinterestStory: Story = {
       ],
     },
     {
+      id: "gaps",
+      kicker: "07b · What the model leaves out",
+      title: "Three factors the revenue depends on that the chain doesn't contain",
+      blocks: [
+        { type: "p", text: "Re-reading our chain, it goes from *all shopping users* straight to purchases. Three things that decide whether any of that revenue exists never appear:" },
+        {
+          type: "table",
+          head: ["Missing factor", "Why it matters"],
+          rows: [
+            ["**Creator participation**", "Only purchases through creators who adopt the program count. If 10% of creators join, the base shrinks accordingly."],
+            ["**Merchant coverage**", "A product earns affiliate commission only if its merchant is in the program. The model assumes every purchase is eligible."],
+            ["**Attributable purchases**", "Only purchases traceable to a participating Pin count. The 1.5% conversion is applied to everyone who shops, not to people who clicked an affiliate link."],
+          ],
+        },
+        { type: "p", text: "Because each of these is a fraction below one, the $18.15M is closer to a ceiling than an estimate. A defensible version would multiply in all three, each with a source." },
+        { type: "h3", text: "One $50 purchase, followed through" },
+        { type: "p", text: "The deck assumes 15% \"remains with creators\" and a 3% Pinterest platform commission, but never says who pays the 3%. There are two readings, and they lead to different businesses:" },
+        {
+          type: "table",
+          head: ["Reading", "Merchant pays", "Creator gets", "Pinterest gets"],
+          rows: [
+            ["Fee on top", "$9.00 (18%)", "$7.50", "$1.50"],
+            ["Fee inside the creator's cut", "$7.50 (15%)", "$6.00", "$1.50"],
+          ],
+        },
+        { type: "p", text: "The first raises merchants' cost against competing programs; the second cuts creators' earnings, which is exactly what would slow adoption. Either way, the next thing to validate is creator adoption at the proposed split, because every other number depends on it." },
+      ],
+    },
+    {
       id: "sensitivity",
       kicker: "08 · Sensitivity",
       title: "What the headline depends on",

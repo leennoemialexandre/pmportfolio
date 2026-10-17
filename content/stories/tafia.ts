@@ -2,6 +2,19 @@ import type { Decision, Story } from "@/lib/story";
 
 export const tafiaDecisions: Decision[] = [
   {
+    id: "delivery",
+    prompt: "The decision I'd challenge",
+    label: "Why not fix reminder delivery first?",
+    icon: "⚖",
+    title: "We bundled two questions that should have been tested separately",
+    body: [
+      "Reminders only reached seniors while the site was open. We had two ways to respond: make the reminder reach people when the site was closed, or give them a reason to keep it open. Within a semester and a limited build team, we deferred reminders outside the website and tested the second.",
+      "Looking back, those are two different hypotheses. **1. Can a medication prompt reliably reach someone?** **2. Do enjoyable activities make the product worth returning to?** The games answered the second one: time in the app rose about 25%. They couldn't answer the first, and the first is the one the product depends on.",
+      "If I ran it again, I'd test delivery first, with one reminder channel outside the website, and measure whether prompts are seen and answered. Then I'd test engagement on top of a reminder that already works.",
+    ],
+    more: { href: "#engagement", label: "Read the full decision" },
+  },
+  {
     id: "games",
     prompt: "What users changed",
     label: "Why add games to a medication tool?",

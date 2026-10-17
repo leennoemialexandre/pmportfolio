@@ -16,7 +16,7 @@ export default function ResumePage() {
         <div className="wrap" style={{ display: "flex", justifyContent: "space-between", alignItems: "end", gap: 24, flexWrap: "wrap" }}>
           <div>
             <p className="kicker">Résumé</p>
-            <h1 className="display-l">The one-page version.</h1>
+            <h1 className="display-l">Résumé</h1>
           </div>
           {site.resumePdf ? (
             <a className="btn" href={site.resumePdf} download>
@@ -64,16 +64,15 @@ export default function ResumePage() {
               </div>
             ))}
 
-            <h2>Selected projects</h2>
-            {projects.map((p) => (
-              <div className="resume-item" key={p.slug}>
-                <h3>
+            <h2>Projects</h2>
+            <p style={{ margin: 0, color: "var(--ink-soft)" }}>
+              {projects.map((p, i) => (
+                <span key={p.slug}>
+                  {i ? " · " : ""}
                   <Link href={`/work/${p.slug}`}>{p.title}</Link>
-                </h3>
-                <span className="when">{p.kind}</span>
-                <p>{p.summary}</p>
-              </div>
-            ))}
+                </span>
+              ))}
+            </p>
 
             <h2>Tools &amp; methods</h2>
             <p style={{ margin: 0, color: "var(--ink-soft)" }}>{toolkit.join(" · ")}</p>

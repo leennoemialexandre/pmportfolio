@@ -21,6 +21,7 @@ const annotations = [
   { where: "Category counts", title: "Lists big enough to be fair", decision: c64Decisions.datasets },
   { where: "Try \"USA\" in Countries", title: "Aliases for natural names", decision: c64Decisions.aliases },
   { where: "Type a wrong answer", title: "Two different error messages", decision: c64Decisions.feedback },
+  { where: "Let the timer run out", title: "Why it says DRAW", decision: c64Decisions.winnable },
 ];
 
 export default function Concentration64Page() {

@@ -177,6 +177,7 @@ export const loopifyStory: Story = {
       title: "Building on someone else's player",
       blocks: [
         { type: "p", text: "Loopify wraps its own interaction around an external service, so product claims have to match what that integration actually controls. Unavailable content, embedding restrictions, browser autoplay rules, and changes to YouTube's API all sit outside it." },
+        { type: "p", text: "There's also a competitive question I haven't answered: YouTube already offers looping for videos and playlists. I didn't validate why someone would choose Loopify instead, so I treat this as a build exercise in working with an external API, not as a product with proven demand." },
         { type: "p", text: "A small playback tool is only useful if its promise is precise. Before adding features, I'd observe whether the current controls help people complete the repeated-listening task reliably." },
       ],
     },

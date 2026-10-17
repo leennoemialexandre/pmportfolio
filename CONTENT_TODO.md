@@ -75,3 +75,29 @@ Note: if this repository is public on GitHub, this file is visible there. Move i
 ## Not included by design
 - GuardAI legal memo (not in the requested work list).
 - Tradeparency (separate project in this repository).
+
+## After the competition review (Oct 17)
+
+Fixed in the site without new evidence:
+- **Hospital:** the metric is relabeled "net margin on patient revenue" (net income ÷ net patient revenue is not operating margin), with a "what I got wrong" decision note. Three overreaching sentences were tightened (mean vs median, sample size vs stability, R² vs omitted factors).
+- **Concentration 64:** confirmed from the original code that a normal game always ends in a DRAW, because the CPU always scores after you and can't time out. This is now disclosed, with two proposed fixes.
+- **Jobaholic:** the sample opens on a populated application, and empty prep offers a jump to the example. The "response rate" flaw is shown next to a proposed history-based fix (sample only; the live app is unchanged).
+- **TAFIA:** a new lead decision note confronts delivery versus engagement as two hypotheses we bundled.
+- **Pinterest:** added a "what the model leaves out" section (creator participation, merchant coverage, attributable purchases) and a single $50 transaction under two readings of who pays the 3%.
+- **Paramount:** replaced the unweighted levers with a plain recommendation and cost table.
+- **Loopify:** states the competitive question (YouTube's native looping) honestly.
+- **About/Contact:** removed "close seconds".
+- **Résumé:** project inventory reduced to a link row; title fixed.
+
+**Please approve the new first-person analysis** (TAFIA "decision I'd challenge", the C64 flaw, the Jobaholic fix, the Pinterest gaps and transaction). I wrote these from the code and the existing materials; they need your voice and agreement.
+
+Still needs you (the review's remaining asks):
+1. **Hospital:** the original CSV and notebook, so I can rebuild the true operating-margin measure, reconcile row counts per filter, check join cardinality, and run threshold sensitivity, then update the paper and charts.
+2. **TAFIA:** reminder timing (how long after opening a prompt appeared); baseline and after session times; how many people or sessions; whether the groups were comparable; whether more people actually saw and answered reminders; why delivery outside the site wasn't feasible; and who the 50+ interviewees were and how they were recruited.
+3. **Jobaholic:** one real feedback → change → result example; whether you verified Supabase row-level security. If you want the response-rate fix in the live app, add the jobaholic repo to a session and I can implement it.
+4. **Original artifacts** for 2–3 lead cases: a research synthesis, a requirement with acceptance criteria, a MoSCoW board, a Jira excerpt, a before/after screen.
+5. **Pinterest:** your decision criteria (what would make you recommend or reject it) and why build rather than partner.
+6. **Entry-Preneur:** interviewee segments, how trust showed up in the interviews, a blog example, and what you personally wrote.
+7. **Paramount:** the memo itself, plus dated audience and financial exhibits.
+8. **Résumé:** the PDF and real accomplishment bullets for Residential Life, BlackGen, and Crisis Text Line.
+9. **Concentration 64:** student age range and setting, the version chronology, and how you observed students researching answers.

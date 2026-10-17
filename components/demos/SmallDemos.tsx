@@ -42,54 +42,6 @@ export function HypothesisFlip() {
   );
 }
 
-/* ---------------- Paramount: the balance ---------------- */
-
-const LEVERS = [
-  { id: "voices", label: "Bring in younger, fresh creative voices", side: 1 },
-  { id: "original", label: "Develop more original storytelling", side: 1 },
-  { id: "social", label: "Strengthen social media engagement", side: 1 },
-  { id: "mentor", label: "Mentorship and knowledge transfer (my memo)", side: 1 },
-  { id: "franchise", label: "Keep leaning on reboots and spinoffs", side: -1 },
-];
-
-export function ParamountBalance() {
-  const [on, setOn] = useState<Record<string, boolean>>({ franchise: true });
-  const tilt = LEVERS.reduce((s, l) => s + (on[l.id] ? l.side : 0), 0);
-  const angle = Math.max(-9, Math.min(9, tilt * 3));
-  return (
-    <div className="balance">
-      <p className="notice" role="note" style={{ marginBottom: 20 }}>
-        <span className="notice-icon" aria-hidden="true">i</span>
-        <span>
-          <strong>An illustration of the tension, not a model.</strong> Nothing here is weighted by data; it shows which way each recommendation pulls.
-        </span>
-      </p>
-      <div className="beam-wrap" aria-hidden="true">
-        <div className="beam" style={{ transform: `rotate(${angle}deg)` }}>
-          <span className="beam-pan left">Existing TV revenue base</span>
-          <span className="beam-pan right">Future streaming audiences</span>
-        </div>
-        <span className="fulcrum" />
-      </div>
-      <p aria-live="polite" style={{ fontWeight: 600 }}>
-        {tilt > 0
-          ? "Leaning toward future streaming audiences, which is where our team's recommendations pushed."
-          : tilt < 0
-            ? "Leaning on the familiar: the existing approach we questioned."
-            : "Balanced. Familiar IP and new bets, which is the framing I'd use in hindsight."}
-      </p>
-      <div className="rec-toggles" role="group" aria-label="Strategic levers">
-        {LEVERS.map((l) => (
-          <button key={l.id} type="button" className="chip" aria-pressed={!!on[l.id]} onClick={() => setOn((o) => ({ ...o, [l.id]: !o[l.id] }))}>
-            {l.side > 0 ? "→ " : "← "}
-            {l.label}
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 /* ---------------- Loopify: the loop logic ---------------- */
 
 type Mode = "single" | "playlist";

@@ -28,7 +28,7 @@ export default function AboutPage() {
           <div style={{ fontSize: "1.15rem", lineHeight: 1.6 }}>
             <p>
               I&rsquo;m {site.name}. I graduated from NYU Stern in May 2026 with a B.S. in Business, Technology &amp; Entrepreneurship (STEM-certified),
-              and I&rsquo;m pursuing Associate Product Manager roles. Product operations, strategy, and BizOps are close seconds.
+              and I&rsquo;m pursuing Associate Product Manager roles.
             </p>
             <p>
               My projects range from a medication-support prototype for older adults to a recall game, a job-search workspace, a platform monetization model,

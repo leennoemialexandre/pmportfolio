@@ -46,7 +46,7 @@ const STEPS = [
   },
   {
     title: "Ratio between −1 and +1",
-    rule: "Analyzed margin ratio within ±100%",
+    rule: "Net margin ratio within ±100%",
     sql: [["kw", "AND"], ["", " net_income / net_patient_revenue "], ["kw", "BETWEEN"], ["", " -1 "], ["kw", "AND"], ["", " 1"]],
     why: "Extreme outliers remained after the floor. Limiting the ratio to ±100% removed reporting irregularities while keeping real variation.",
     tradeoff: "Genuine extreme distress or windfalls could be excluded too.",
@@ -173,7 +173,7 @@ export function HospitalExplorer() {
         2 · How strong are the relationships?
       </h3>
       <p style={{ color: "var(--ink-soft)", maxWidth: "62ch" }}>
-        Pearson correlations with the analyzed margin ratio, placed on the full −1 to +1 scale. All three sit close to zero: weak associations, not effects.
+        Pearson correlations with the net margin on patient revenue, placed on the full −1 to +1 scale. All three sit close to zero: weak associations, not effects.
       </p>
       <div className="corr" role="img" aria-label="Correlation strip: occupancy rate +0.197, uncompensated care ratio −0.133, labor cost ratio −0.127, all near zero on a scale from −1 to +1.">
         <div className="corr-axis">
@@ -205,7 +205,7 @@ export function HospitalExplorer() {
       <h3 className="display-m" style={{ fontSize: "1.6rem", margin: "48px 0 6px" }}>
         3 · The actual outputs
       </h3>
-      <p style={{ color: "var(--ink-soft)", maxWidth: "62ch" }}>Real charts from my notebook. The original paper labels the ratio &ldquo;operating margin.&rdquo;</p>
+      <p style={{ color: "var(--ink-soft)", maxWidth: "62ch" }}>Real charts from my notebook. My paper mislabels the ratio &ldquo;operating margin&rdquo;; it&rsquo;s net income ÷ net patient revenue.</p>
       <div className="chart-tabs" role="group" aria-label="Choose a chart">
         {CHARTS.map((x) => (
           <button key={x.key} type="button" className="chip" aria-pressed={chart === x.key} onClick={() => setChart(x.key)}>

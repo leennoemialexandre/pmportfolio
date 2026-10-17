@@ -37,9 +37,21 @@ export const hospitalDecisions: Decision[] = [
     title: "Weak relationships are questions, not instructions",
     body: [
       "Occupancy had a weak positive association with the margin ratio; labor-cost and uncompensated-care shares had weak negative ones. Even the fullest model explained under 10% of the variation.",
-      "None of this says a hospital should cut labor or chase occupancy. It says these measures move together slightly across hospitals, and that most of what drives margins (payer mix, market power, management, regulation) isn't in the model.",
+      "None of this says a hospital should cut labor or chase occupancy. It says these measures move together slightly across hospitals, and that most of the variation in margins is left unexplained by them.",
     ],
     more: { href: "#findings", label: "See the findings" },
+  },
+  {
+    id: "label",
+    prompt: "What I got wrong",
+    label: "It wasn't operating margin",
+    icon: "!",
+    title: "The headline metric was mislabeled in my own paper",
+    body: [
+      "My paper called net income ÷ net patient revenue \"operating margin\". Net income includes non-operating income such as investments and contributions, so the ratio is a net margin on patient revenue. I've relabeled it everywhere on this page.",
+      "The fix isn't just a new name. The right next step is to rebuild the measure from operating income, rerun the filters and models, and check whether the associations hold. Until then, the findings describe the net ratio only.",
+    ],
+    more: { href: "#question", label: "Read the correction" },
   },
   {
     id: "ridge",
@@ -70,7 +82,7 @@ export const hospitalStory: Story = {
         { type: "p", text: "For a Spring 2026 data course, I used the 2023 Medicare Hospital Cost Report dataset, which holds hospital-level financial, operational, cost, and structural information. I chose it because I'm interested in where healthcare meets business, especially how financial incentives shape hospital operations." },
         { type: "p", text: "The project had two related tasks: build a dataset that could be queried consistently, then interpret financial and operational relationships without overstating them." },
         { type: "question", text: "Which patterns stay interpretable after accounting for obvious data-quality and comparability problems?" },
-        { type: "callout", tone: "limit", title: "About the label", text: "The ratio I analyzed is **net income ÷ net patient revenue**. My original paper calls it \"operating margin\". Until I've checked those source fields against the dataset documentation, I call it the **analyzed margin ratio** here. Every number below refers to that calculation and the filtered sample." },
+        { type: "callout", tone: "limit", title: "A correction to my own paper", text: "My paper called this ratio \"operating margin\". It isn't one. I divided **net income** by **net patient revenue**. Net income includes non-operating items like investment income and contributions, and the denominator leaves out other operating revenue. So what I measured is a **net margin on patient revenue**, and that's what this page calls it. A true operating margin would use operating income over total operating revenue. I haven't rerun the analysis on that measure yet, so every number below describes the net ratio." },
       ],
     },
     {
@@ -111,7 +123,7 @@ export const hospitalStory: Story = {
           type: "table",
           head: ["Measure", "Calculation", "Reading it carefully"],
           rows: [
-            ["Analyzed margin ratio", "Net income ÷ net patient revenue", "The financial label needs verifying against source definitions"],
+            ["Net margin on patient revenue", "Net income ÷ net patient revenue", "Not operating margin: net income includes non-operating income"],
             ["Occupancy rate", "Total days (all payers) ÷ total bed-days available", "Numerator and denominator should cover the same period and population"],
             ["Labor cost ratio", "Adjusted salaries ÷ total costs", "A cost share, not a measure of staffing adequacy or productivity"],
             ["Uncompensated care ratio", "Unreimbursed and uncompensated care ÷ total costs", "Component definitions and overlaps need confirming"],
@@ -163,7 +175,7 @@ export const hospitalStory: Story = {
           rows: [
             ["Final filtered sample", "3,103", "Short-term hospitals after all exclusions"],
             ["Mean ratio", "≈ 4.3%", "Descriptive average in this sample"],
-            ["Median ratio", "≈ 4.55%", "Close to the mean, so the tails don't dominate"],
+            ["Median ratio", "≈ 4.55%", "Close to the mean; on its own that doesn't rule out heavy tails"],
             ["Interquartile range", "−3.3% to 13.0%", "The middle half of hospitals"],
             ["Occupancy, r", "+0.197", "Weak positive association"],
             ["Labor cost ratio, r", "−0.127", "Weak negative association"],
@@ -192,7 +204,7 @@ export const hospitalStory: Story = {
           ],
         },
         { type: "p", text: "On an 80/20 train/test split, OLS held up slightly better than Ridge (test R² 0.0589 vs. 0.0407; RMSE 0.1648 vs. 0.1664), so I kept the simpler model." },
-        { type: "p", text: "Residuals were heavy-tailed (kurtosis ≈ 8.7, Jarque–Bera strongly rejecting normality) but centered on zero without obvious curvature. With about 3,000 observations, the coefficient estimates are reasonably stable, though the tails are a reason for caution." },
+        { type: "p", text: "Residuals were heavy-tailed (kurtosis ≈ 8.7, Jarque–Bera strongly rejecting normality) but centered on zero without obvious curvature. A large sample helps the coefficient estimates, but it doesn't prove they're stable: I haven't tested how they move when the filters change, and the heavy tails make that check worth running." },
         {
           type: "figure",
           src: "/images/hospital/ols.png",
@@ -202,7 +214,7 @@ export const hospitalStory: Story = {
           alt: "statsmodels OLS regression results for operating margin on occupancy rate, labor cost ratio and uncompensated ratio: R-squared 0.070, 3,033 observations, coefficients 0.1409, −0.1816 and −0.3048, all with p-values of 0.000, kurtosis 8.694.",
           caption: "The original regression output for model 2. Note it uses 3,033 complete observations, slightly fewer than the 3,103-hospital sample, because rows missing any predictor drop out.",
         },
-        { type: "p", text: "**The modest R² is the substantive finding.** Margins are shaped by forces this dataset doesn't capture well: regional market power, payer mix, competition, management, and regulation." },
+        { type: "p", text: "**The modest R² is the substantive finding.** These variables explain little of why hospital margins differ. The R² can't say what explains the rest. Payer mix, market power, and competition are plausible candidates I'd test next, not conclusions." },
       ],
     },
     {

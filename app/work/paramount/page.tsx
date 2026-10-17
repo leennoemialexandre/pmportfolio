@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { ProjectShell } from "@/components/ProjectShell";
-import { ParamountBalance } from "@/components/demos/SmallDemos";
 import { getProject } from "@/content/projects";
 import { paramountStory } from "@/content/stories/supporting";
 
@@ -34,9 +33,42 @@ export default function ParamountPage() {
         { term: "Status", detail: "Academic recommendation only" },
       ]}
       experience={{
-        title: "Feel the tension",
-        intro: "Toggle the levers our team weighed and watch which way each one pulls.",
-        content: <ParamountBalance />,
+        title: "The recommendation, and what it costs",
+        intro: "The short version of the trade our team proposed. The full story covers the evidence and its gaps.",
+        content: (
+          <div className="table-wrap" role="region" aria-label="Recommendation summary" tabIndex={0}>
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">Question</th>
+                  <th scope="col">Our answer</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">The tension</th>
+                  <td>Traditional TV still carried major revenue but faced structural decline; streaming was growing with direct-to-consumer losses.</td>
+                </tr>
+                <tr>
+                  <th scope="row">The diagnosis</th>
+                  <td>An older-skewing audience and a content slate leaning heavily on nostalgia, reboots, and spinoffs.</td>
+                </tr>
+                <tr>
+                  <th scope="row">The recommendation</th>
+                  <td>Shift investment toward new creative voices and original storytelling for future streaming audiences, backed by mentorship to develop that talent.</td>
+                </tr>
+                <tr>
+                  <th scope="row">What it costs</th>
+                  <td>Funding original content while streaming was losing money, which is why divestitures and funding choices came into the discussion.</td>
+                </tr>
+                <tr>
+                  <th scope="row">What we didn&rsquo;t prove</th>
+                  <td>That original content would outperform familiar franchises financially, or what the right mix between them is.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        ),
       }}
       story={paramountStory}
       storyIntro="The tension, our analysis, the portfolio tradeoff, my memo, and what the work doesn't prove."

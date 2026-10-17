@@ -59,7 +59,11 @@ interface App {
   addedOffset: number; // days relative to today (negative = past)
   deadlineOffset?: number;
   prep?: Prep;
+  /** Earlier stages this application passed through (sample data). The shipped app doesn't keep this. */
+  history?: Stage[];
 }
+
+const RESPONSE_STAGES: Stage[] = ["HireVue", "Phone Screen", "Interview", "Offer"];
 
 function dayString(offset: number) {
   const d = new Date();
@@ -118,7 +122,7 @@ const SAMPLE: App[] = [
   { id: "a4", company: "Kettle Health", role: "APM, Care Experience", status: "Saved", industry: "Healthcare", jobType: "Full-time", workType: "Hybrid", location: "Boston, MA", addedOffset: -1, deadlineOffset: 0 },
   { id: "a5", company: "Northpaw Games", role: "Associate Producer", status: "HireVue", industry: "Technology", jobType: "Full-time", workType: "Hybrid", location: "Seattle, WA", addedOffset: -3 },
   { id: "a6", company: "Meridian Transit Lab", role: "Strategy Analyst", status: "Saved", industry: "Government", jobType: "Full-time", workType: "On-site", location: "Newark, NJ", addedOffset: 0, deadlineOffset: 6 },
-  { id: "a7", company: "Pebble Finance", role: "Business Analyst", status: "Rejected", industry: "Finance", jobType: "Full-time", workType: "Remote", location: "Jersey City, NJ", addedOffset: -12 },
+  { id: "a7", company: "Pebble Finance", role: "Business Analyst", status: "Rejected", industry: "Finance", jobType: "Full-time", workType: "Remote", location: "Jersey City, NJ", addedOffset: -12, history: ["Applied", "Phone Screen"] },
   { id: "a8", company: "Tidepool Media", role: "Product Intern", status: "Applied", industry: "Media", jobType: "Internship", workType: "Remote", location: "Orlando, FL", addedOffset: 0, deadlineOffset: -1 },
   { id: "a9", company: "Cobalt Commons", role: "Associate Product Manager", status: "Offer", industry: "Non-profit", jobType: "Full-time", workType: "Hybrid", location: "Philadelphia, PA", addedOffset: -13 },
   { id: "a10", company: "Sundial Retail Co.", role: "Product Associate", status: "Applied", industry: "Retail", jobType: "Full-time", workType: "On-site", location: "Atlanta, GA", addedOffset: -1 },
@@ -133,7 +137,7 @@ export function JobaholicSandbox() {
   const [view, setView] = useState<"board" | "list">("board");
   const [filterStage, setFilterStage] = useState<"All" | Stage>("All");
   const [search, setSearch] = useState("");
-  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [selectedId, setSelectedId] = useState<string | null>("a1");
   const [prepFor, setPrepFor] = useState<string | null>(null);
   const [announce, setAnnounce] = useState("");
   const detailRef = useRef<HTMLDivElement>(null);
@@ -144,7 +148,7 @@ export function JobaholicSandbox() {
     setView("board");
     setFilterStage("All");
     setSearch("");
-    setSelectedId(null);
+    setSelectedId("a1");
     setPrepFor(null);
     setAnnounce("Sample workspace reset.");
   };
@@ -166,7 +170,7 @@ export function JobaholicSandbox() {
   };
 
   const move = (id: string, status: Stage) => {
-    setApps((list) => list.map((a) => (a.id === id ? { ...a, status } : a)));
+    setApps((list) => list.map((a) => (a.id === id ? { ...a, status, history: [...(a.history ?? []), a.status] } : a)));
     const a = apps.find((x) => x.id === id);
     setAnnounce(`${a?.company} moved to ${status}.`);
   };
@@ -220,7 +224,7 @@ export function JobaholicSandbox() {
         {tab === "tracker" ? (
           <div className="jh-body" role="tabpanel" id="jh-panel-tracker" aria-labelledby="jh-tab-tracker">
             {prepApp ? (
-              <PrepView app={prepApp} onBack={() => setPrepFor(null)} />
+              <PrepView app={prepApp} onBack={() => setPrepFor(null)} onOpenExample={() => { setSelectedId("a1"); setPrepFor("a1"); }} />
             ) : (
               <>
                 <div className="jh-controls">
@@ -435,7 +439,12 @@ function Dashboard({ apps }: { apps: App[] }) {
     const ind: Record<string, number> = {};
     apps.forEach((a) => (ind[a.industry] = (ind[a.industry] ?? 0) + 1));
     const byInd = Object.entries(ind).sort((a, b) => b[1] - a[1]).slice(0, 6);
-    return { total, applied, offers, responseRate, rejectionRate, avgDays, streak, last14, byStatus, byInd, interviews, rejected };
+    // Proposed fix: count an application as responded if it ever reached a response stage, even if it's now Rejected.
+    const everResponded = apps.filter(
+      (a) => a.status !== "Saved" && (RESPONSE_STAGES.includes(a.status) || (a.history ?? []).some((h) => RESPONSE_STAGES.includes(h))),
+    ).length;
+    const everRate = applied > 0 ? Math.round((everResponded / applied) * 100) : 0;
+    return { total, applied, offers, responseRate, rejectionRate, avgDays, streak, last14, byStatus, byInd, interviews, rejected, everResponded, everRate };
   }, [apps]);
 
   const maxDay = Math.max(...stats.last14.map((d) => d.count), 1);
@@ -466,6 +475,29 @@ function Dashboard({ apps }: { apps: App[] }) {
         {stats.rejected} ÷ {stats.applied}. The streak counts consecutive days, back from today, with at least one non-Saved application added. Move a card on the
         Tracker tab and these update.
       </p>
+      <div className="jh-panel" style={{ borderColor: "#f59e0b", background: "#fffbeb" }}>
+        <h3>A flaw in &ldquo;Response rate,&rdquo; and the fix I&rsquo;d ship</h3>
+        <p style={{ margin: "0 0 10px", fontSize: "0.92rem" }}>
+          The shipped formula only looks at each application&rsquo;s <em>current</em> stage. When an application that reached a phone screen is later
+          rejected, the response it got disappears from the rate. In this sample, Pebble Finance had a phone screen before its rejection.
+        </p>
+        <div className="jh-stats" style={{ marginBottom: 6 }}>
+          <div className="jh-stat">
+            <b>{stats.responseRate}%</b>
+            <span>As shipped: currently in a response stage</span>
+          </div>
+          <div className="jh-stat" style={{ borderColor: "#10b981" }}>
+            <b>{stats.everRate}%</b>
+            <span>
+              Proposed: ever got a response ({stats.everResponded} ÷ {stats.applied})
+            </span>
+          </div>
+        </div>
+        <p style={{ margin: 0, fontSize: "0.85rem", color: "#475569" }}>
+          The fix needs one change to the data: keep a record of stages an application has passed through, not just the latest one. This sample does that; the
+          live app doesn&rsquo;t yet. Move an interviewing application to Rejected and watch the two numbers split.
+        </p>
+      </div>
       <div className="jh-panel">
         <h3>Applications · last 14 days</h3>
         <div className="jh-bars" role="img" aria-label={`Applications added per day over the last 14 days: ${stats.last14.map((d) => d.count).join(", ")}`}>
@@ -563,7 +595,7 @@ function DeadlineSim() {
   );
 }
 
-function PrepView({ app, onBack }: { app: App; onBack: () => void }) {
+function PrepView({ app, onBack, onOpenExample }: { app: App; onBack: () => void; onOpenExample: () => void }) {
   const prep = app.prep ?? { notes: "", links: [], rounds: [] };
   const [activeRound, setActiveRound] = useState(prep.rounds[0]?.id ?? null);
   const [mock, setMock] = useState(false);
@@ -600,7 +632,10 @@ function PrepView({ app, onBack }: { app: App; onBack: () => void }) {
       {prep.rounds.length === 0 ? (
         <p className="jh-callout">
           No rounds yet for this application. In the real app, a prep page is created the first time you open it, and you add rounds and questions as
-          interviews get scheduled. Try Lanternworks Studio or Brightloom Learning to see a filled-in example.
+          interviews get scheduled.{" "}
+          <button type="button" className="btn btn--small btn--accent" style={{ marginTop: 8 }} onClick={onOpenExample}>
+            Open a filled-in example (Lanternworks Studio)
+          </button>
         </p>
       ) : (
         <div className="jh-prep">

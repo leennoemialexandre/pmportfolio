@@ -1,7 +1,7 @@
 import type { Decision, Story } from "@/lib/story";
 
 // Decision stories pinned next to the parts of the game they explain.
-export const c64Decisions: Record<"browser" | "difficulty" | "datasets" | "aliases" | "feedback", Decision> = {
+export const c64Decisions: Record<"browser" | "difficulty" | "datasets" | "aliases" | "feedback" | "winnable", Decision> = {
   browser: {
     id: "browser",
     prompt: "Why I chose this",
@@ -64,6 +64,23 @@ export const c64Decisions: Record<"browser" | "difficulty" | "datasets" | "alias
       "Because aliases resolve before the duplicate check, saying \"USA\" after \"United States\" is caught as a repeat. Try it in the Countries category.",
     ],
     more: { href: "#validation", label: "Read about validation" },
+  },
+  winnable: {
+    id: "winnable",
+    prompt: "What I'd fix next",
+    label: "Can you actually win?",
+    icon: "?",
+    title: "As built, almost every game ends in a draw",
+    body: [
+      "Re-reading the rules for this portfolio, I found a flaw in the scoring. Your timer only runs on your turn, and the CPU always answers right after you score. So whenever you run out of time, the scores are level, and the game declares a draw. You only win if the CPU runs out of words, which almost never happens with lists this big.",
+      "Students still played and researched answers, but the competition I described was really an endurance challenge. That gap between the framing and the mechanics is mine to fix.",
+    ],
+    cells: [
+      { term: "Option A", detail: "Keep score as rounds survived and call it what it is: a streak." },
+      { term: "Option B", detail: "Give the CPU a chance to miss or hesitate that rises with difficulty, so you can genuinely beat it." },
+      { term: "How I'd choose", detail: "Watch whether players replay more with a beatable opponent than with a streak to break, then keep the version that earns more voluntary replays." },
+    ],
+    more: { href: "#scoring", label: "Read the full analysis" },
   },
   feedback: {
     id: "feedback",
@@ -204,9 +221,27 @@ export const c64Story: Story = {
       kicker: "08 · Scope",
       title: "From prototype to a complete play loop",
       blocks: [
-        { type: "p", text: "The deployed game includes category and difficulty choices, a live countdown with a visual timer bar, a CPU \"thinking\" state, scoring, a used-entry counter, and a real-time game log. Results lead to win, loss, or draw, then to replay or the menu." },
+        { type: "p", text: "The deployed game includes category and difficulty choices, a live countdown with a visual timer bar, a CPU \"thinking\" state, scoring, a used-entry counter, and a real-time game log. Results lead to win, loss, or draw (in practice almost always a draw; see the flaw below), then to replay or the menu." },
         { type: "p", text: "That scope made it a usable game rather than an isolated validation demo. The CPU is deliberately simple and predictable: after a 2.5-second pause, it picks a random unused entry from the same list." },
         { type: "p", text: "I didn't use a named prioritization framework for this project. Looking back, the delivered scope put the complete play loop, fair validation, and simple deployment first." },
+      ],
+    },
+    {
+      id: "scoring",
+      kicker: "08b · A flaw I found later",
+      title: "The competition can't really be won",
+      blocks: [
+        { type: "p", text: "Preparing this case study, I traced the rules end to end and found a design problem I hadn't noticed while building. The timer only runs during your turn. When you score, the CPU answers and scores too. So if you time out, the scores are equal and the result is a **draw**. You can only win if the CPU runs out of entries, which is practically impossible with lists of hundreds or thousands of answers. The CPU can never time out or miss." },
+        { type: "p", text: "That doesn't erase what players did: students played and some researched answers to do better. But it means the game I pitched as a head-to-head competition behaves like an endurance challenge, and my earlier write-ups described it as a competition without checking." },
+        {
+          type: "table",
+          head: ["Fix", "What changes", "Risk"],
+          rows: [
+            ["Score rounds survived", "The game becomes an honest streak challenge", "Loses the opponent framing that made it feel like a match"],
+            ["Make the CPU fallible", "A miss chance that rises with difficulty, so you can genuinely win", "Too generous and it's trivial; too stingy and nothing changes"],
+          ],
+        },
+        { type: "p", text: "I'd test both with players and keep whichever earns more voluntary replays. I left the port on this page faithful to the original so you can see the behavior for yourself." },
       ],
     },
     {

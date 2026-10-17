@@ -47,12 +47,13 @@ export const jobaholicDecisions: Decision[] = [
   {
     id: "metrics",
     prompt: "How it works",
-    label: "What \"response rate\" actually means",
+    label: "The response-rate bug I found",
     icon: "%",
-    title: "A percentage is only useful if its definition matches what you think it means",
+    title: "My dashboard erased responses that later turned into rejections",
     body: [
       "In Jobaholic, *applied* means anything not still in Saved. Response rate counts HireVue, Phone Screen, Interview, and Offer against that; rejection rate counts Rejected against it. The streak counts consecutive days with at least one non-Saved application added.",
-      "Writing those definitions down is part of the product. A rejected application that once had an interview, for instance, no longer counts as a response, which is worth knowing before you read the number.",
+      "Writing those definitions out exposed a real flaw. Status is a single current value, so an application that reached a phone screen and was later rejected stops counting as a response. The number called \"response rate\" actually measures how many applications are *currently* in a response stage.",
+      "The fix is a data change, not a relabel: record the stages each application has passed through, then count any application that ever reached HireVue, Phone Screen, Interview, or Offer. The sample workspace shows both numbers side by side. The live app still uses the old formula; this is the next change I'd ship.",
     ],
     more: { href: "#reliability", label: "Read about reliability" },
   },
@@ -193,7 +194,8 @@ export const jobaholicStory: Story = {
             "**Deadline warnings**: expired, due today, 1–3 days (amber), 4–7 days (blue), otherwise none.",
           ],
         },
-        { type: "p", text: "Writing these out shows where a number could surprise someone. Because status is a single current value, an application that reached an interview and was later rejected counts toward the rejection rate, not the response rate. Dates are compared as calendar days, so time zones matter at the edges." },
+        { type: "p", text: "Writing these out exposed a real flaw. Because status is a single current value, an application that reached an interview and was later rejected counts toward the rejection rate and **disappears from the response rate**. The metric is labeled as a historical rate but measures the current pipeline." },
+        { type: "p", text: "**The fix I'd ship:** keep a stage history for each application and count an application as responded if it ever reached HireVue, Phone Screen, Interview, or Offer. The dashboard in the sample above shows the shipped number and the corrected one side by side. Separately, dates are compared as calendar days, so time zones matter at the edges." },
       ],
     },
     {
