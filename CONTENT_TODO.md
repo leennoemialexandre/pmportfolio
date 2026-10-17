@@ -101,3 +101,26 @@ Still needs you (the review's remaining asks):
 7. **Paramount:** the memo itself, plus dated audience and financial exhibits.
 8. **Résumé:** the PDF and real accomplishment bullets for Residential Life, BlackGen, and Crisis Text Line.
 9. **Concentration 64:** student age range and setting, the version chronology, and how you observed students researching answers.
+
+## Project materials tracker
+
+| Project | Materials on the site | Still welcome |
+|---|---|---|
+| TAFIA | Live prototype | Research synthesis, MoSCoW board, requirements/Jira excerpt (the final deck is held back: its customer-story slide shows a family member's photo and health details) |
+| Concentration 64 | Live original game, source repo | Version history or screenshots of earlier versions |
+| Jobaholic | Live app, source repo | A feedback → change example |
+| Pinterest | Original team deck (18 slides) | The financial model spreadsheet |
+| Hospital | Original final report (15 pp), "The Economics of Care" deck (17 slides) | Original CSV and notebook |
+| Paramount | "The Next Story Starts Here" deck (16 slides) | The original team deck, script, planner, and the individual strategic-action memo |
+| Entry-Preneur | None yet | Research synthesis, blog example, competitor matrix |
+| Loopify | Live tool, source repo | — |
+
+### Discrepancies and questions from batch 1
+- **Origin of the two new decks.** Paramount+ "The Next Story Starts Here" cites the "original team deck", "script", "planner", and "Alexandre strategic action" in its footers, and "The Economics of Care" cites the "final report" and "database working notes". Both are labeled **"Made later for the portfolio"**. If either was an original class deliverable, tell me and I'll relabel it.
+- **"Operating margin" in both hospital files.** The paper and the Economics of Care deck still call net income ÷ net patient revenue "operating margin". The site explains the correction, and both material descriptions point it out. Consider updating the deck.
+- **Hospital sample sizes resolved by the deck:** 3,123 screened, 3,103 analytic, 3,033 in the baseline OLS, and all 3,103 in the ownership model. My earlier caption guessed that rows were dropped for missing predictors; it now just reports the counts. The reason the baseline used 3,033 is still unknown.
+- **Paramount date and context added:** Spring 2024, written as Bob Bakish's exit was reported.
+- **What came from the original Paramount work vs. the later deck.** The deck marks these as proposed later additions: the discover/support/commission pipeline, commissioning criteria, staged funding, the first-year plan, and the scorecard. The site presents them as "What I added later". The 18–34 audience and the non-core asset sales are attributed to the original planner.
+- **Paramount deck images:** Paramount's logo, Variety and LA Times headline screenshots, and show posters (iCarly, Frasier, BoJack Horseman, Stranger Things). This is normal for an academic case study, but it's third-party imagery. Fine to keep for a portfolio; just be aware.
+- **Privacy check:** no participant data, credentials, or personal information in this batch. The hospital paper names your instructor (surname only), which is normal for coursework.
+- **The individual Paramount memo** isn't among the files, so the page doesn't link to it. Send it and I'll place it beside the "My memo" section.

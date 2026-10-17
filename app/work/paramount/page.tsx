@@ -27,7 +27,7 @@ export default function ParamountPage() {
         </p>
       }
       facts={[
-        { term: "Context", detail: "NYU Stern group project" },
+        { term: "Context", detail: "NYU Stern group project · Spring 2024" },
         { term: "My part", detail: "Research, audience analysis, recommendations, presentation" },
         { term: "Individual", detail: "Strategic-action memo" },
         { term: "Status", detail: "Academic recommendation only" },
@@ -47,19 +47,19 @@ export default function ParamountPage() {
               <tbody>
                 <tr>
                   <th scope="row">The tension</th>
-                  <td>Traditional TV still carried major revenue but faced structural decline; streaming was growing with direct-to-consumer losses.</td>
+                  <td>TV Media was ~68% of FY2023 revenue and in structural decline; Direct-to-Consumer was ~22% and lost ~$1.6B (adjusted OIBDA), even with 67.5M Paramount+ subscribers.</td>
                 </tr>
                 <tr>
                   <th scope="row">The diagnosis</th>
-                  <td>An older-skewing audience and a content slate leaning heavily on nostalgia, reboots, and spinoffs.</td>
+                  <td>An older-skewing audience and a slate leaning on revivals like <em>iCarly</em> and <em>Frasier</em>, while Netflix built new worlds like <em>Stranger Things</em>.</td>
                 </tr>
                 <tr>
                   <th scope="row">The recommendation</th>
-                  <td>Shift investment toward new creative voices and original storytelling for future streaming audiences, backed by mentorship to develop that talent.</td>
+                  <td>Shift investment toward new creative voices and original storytelling for adults 18–34, backed by mentorship to develop that talent.</td>
                 </tr>
                 <tr>
                   <th scope="row">What it costs</th>
-                  <td>Funding original content while streaming was losing money, which is why divestitures and funding choices came into the discussion.</td>
+                  <td>Funding original content while streaming was losing money; our plan suggested selling non-core assets, with no valuation behind it.</td>
                 </tr>
                 <tr>
                   <th scope="row">What we didn&rsquo;t prove</th>

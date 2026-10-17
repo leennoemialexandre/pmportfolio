@@ -3,6 +3,8 @@ import type { ProjectMeta } from "@/content/projects";
 import { nextProject } from "@/content/projects";
 import type { Story } from "@/lib/story";
 import { StoryView } from "./StoryView";
+import { MaterialChip, ProjectMaterials } from "./ProjectMaterials";
+import { materialsFor } from "@/content/materials";
 import { LayerNav } from "./LayerNav";
 import { Arrow, Sparkle } from "./Doodles";
 
@@ -27,10 +29,12 @@ interface ProjectShellProps {
 
 export function ProjectShell({ meta, headline, lede, facts, experience, decisions, story, storyIntro, links }: ProjectShellProps) {
   const next = nextProject(meta.slug);
+  const projectMaterials = materialsFor(meta.slug);
   const layers = [
     { id: "experience", label: experience.title, color: "var(--accent-pop)" },
     ...(decisions ? [{ id: "decisions", label: decisions.title, color: "var(--butter)" }] : []),
     { id: "story", label: "Full story", color: "var(--mint)" },
+    ...(projectMaterials.length ? [{ id: "materials", label: "Materials", color: "var(--peach)" }] : []),
   ];
 
   return (
@@ -62,6 +66,18 @@ export function ProjectShell({ meta, headline, lede, facts, experience, decision
                 </a>
               ))}
             </p>
+          ) : null}
+          {projectMaterials.some((m) => m.preview) ? (
+            <div className="material-chips" style={{ marginTop: 18 }}>
+              {projectMaterials
+                .filter((m) => m.preview)
+                .map((m) => (
+                  <MaterialChip key={m.id} id={m.id} />
+                ))}
+              <a className="link-arrow" href="#materials" style={{ alignSelf: "center", marginBottom: 18 }}>
+                Preview all materials <span aria-hidden="true">↓</span>
+              </a>
+            </div>
           ) : null}
           <dl className="facts">
             {facts.map((f) => (
@@ -109,6 +125,19 @@ export function ProjectShell({ meta, headline, lede, facts, experience, decision
           <StoryView story={story} />
         </div>
       </section>
+
+      {projectMaterials.length ? (
+        <section id="materials" className="layer" aria-labelledby="materials-h">
+          <div className="wrap">
+            <div className="layer-head">
+              <span className="layer-num">{decisions ? "04" : "03"} · Evidence</span>
+              <h2 id="materials-h">Project materials</h2>
+              <p>The actual files and links behind this case study. Each one says whether it was a team deliverable or my own work, and whether it&rsquo;s original or made later for this portfolio.</p>
+            </div>
+            <ProjectMaterials items={projectMaterials} />
+          </div>
+        </section>
+      ) : null}
 
       <section className="layer" aria-label="Next project">
         <div className="wrap">

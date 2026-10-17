@@ -69,6 +69,7 @@ export const pinterestStory: Story = {
         { type: "p", text: "Our NYU Stern team examined Pinterest as a visual discovery platform with a growing connection to commerce. In the data we used, Pinterest reported 537 million monthly active users in Q3 2024, and 55% of users described it as a place to shop." },
         { type: "p", text: "The monetization problem we identified was a separation between where users discovered products and where affiliate economics were captured. Pinterest permitted affiliate links, but through third-party systems such as LTK, ShopMy, and Amazon Associates, and it had no integrated in-house program." },
         { type: "callout", tone: "limit", title: "A hypothesis, not proof", text: "Not every off-platform purchase is lost Pinterest revenue. External platforms supply merchant relationships, attribution, tools, and services that help make transactions happen. The case depends on the share Pinterest could realistically serve and recapture." },
+        { type: "materials", items: [{ id: "pinterest-deck", page: 3, pages: "3–8", note: "problem, landscape, and justification" }] },
       ],
     },
     {
@@ -124,6 +125,7 @@ export const pinterestStory: Story = {
         },
         { type: "p", text: "The project considered creator incentives, commission structure, user experience, disclosure, data security and privacy, engagement, implementation, and competitive differentiation. The intended chain was creator content → product discovery → attributable commerce → affiliate economics." },
         { type: "p", text: "We didn't specify checkout, attribution windows, or the full payout mechanics, so it's a strategy and product concept, not a payment or tracking system design." },
+        { type: "materials", items: [{ id: "pinterest-deck", page: 9, pages: "9–11", note: "the program and how it works for creators" }] },
       ],
     },
     {
@@ -171,6 +173,7 @@ export const pinterestStory: Story = {
           ],
         },
         { type: "callout", tone: "limit", title: "How to read these numbers", text: "**$18.15M is modeled annual platform revenue**, before any costs. It isn't actual revenue, and it isn't profit. The chain treats each shopping user as converting at 1.5% a month, which is a simplification of how often people actually buy. The deck also rounds annual sales to $1.21B before the last steps; unrounded, the chain gives about $18.12M." },
+        { type: "materials", items: [{ id: "pinterest-deck", page: 12, pages: "12–15", note: "the financial projections" }] },
       ],
     },
     {

@@ -8,6 +8,7 @@ export type Block =
   | { type: "table"; head: string[]; rows: string[][]; caption?: string; numeric?: number[] }
   | { type: "callout"; title?: string; text: string; tone?: "note" | "limit" }
   | { type: "question"; text: string }
+  | { type: "materials"; items: { id: string; page?: number; pages?: string; note?: string }[] }
   | { type: "figure"; src: string; alt: string; caption: string; width: number; height: number; label?: string };
 
 export interface StorySection {

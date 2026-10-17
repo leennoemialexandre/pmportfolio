@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ProjectShell } from "@/components/ProjectShell";
 import { DecisionNotes } from "@/components/DecisionNotes";
 import { HospitalExplorer } from "@/components/demos/HospitalExplorer";
+import { MaterialChip } from "@/components/ProjectMaterials";
 import { getProject } from "@/content/projects";
 import { hospitalDecisions, hospitalStory } from "@/content/stories/hospital";
 
@@ -29,7 +30,6 @@ export default function HospitalPage() {
           some &ldquo;margins&rdquo; were below &minus;100,000,000% and working out why.
         </p>
       }
-      links={[{ href: "/docs/hospital-operating-margin-analysis.pdf", label: "Read the original paper (PDF)" }]}
       facts={[
         { term: "My role", detail: "Independent, with ChatGPT assistance" },
         { term: "Data", detail: "2023 Medicare Hospital Cost Report" },
@@ -38,7 +38,12 @@ export default function HospitalPage() {
       ]}
       experience={{
         title: "Follow the data from messy to meaningful",
-        content: <HospitalExplorer />,
+        content: (
+          <>
+            <MaterialChip id="hospital-report" page={3} pages="3–4" note="the cleaning SQL this walkthrough follows" />
+            <HospitalExplorer />
+          </>
+        ),
       }}
       decisions={{
         title: "The judgment calls",

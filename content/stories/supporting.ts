@@ -69,7 +69,7 @@ export const entrypreneurStory: Story = {
 
 export const paramountStory: Story = {
   glance: [
-    { label: "Context", text: "An NYU Stern corporate strategy and communication group project, looking at traditional TV, streaming, revenue mix, audiences, and competitors." },
+    { label: "Context", text: "A Spring 2024 NYU Stern corporate strategy and communication group project, written as Paramount's CEO was leaving amid Skydance talks." },
     { label: "My part", text: "Company and industry research, TV-versus-streaming and audience analysis, competitive research, recommendations, presentation scripting, and Q&A prep." },
     { label: "Individually", text: "I wrote a separate strategic-action memo on new creative talent and mentorship." },
   ],
@@ -79,7 +79,19 @@ export const paramountStory: Story = {
       kicker: "01 · The tension",
       title: "The current revenue base versus the future audience",
       blocks: [
-        { type: "p", text: "Our team analyzed a company whose traditional TV business was still a major revenue source while facing structural decline. We looked at Paramount+'s growth alongside direct-to-consumer losses, and at the older skew of CBS and traditional TV audiences." },
+        { type: "p", text: "Our team analyzed a company whose traditional TV business was still the core of its revenue while facing structural decline. In FY2023, TV Media brought in roughly **68%** of revenue and Direct-to-Consumer about **22%**. Paramount+ had **67.5 million** subscribers at the end of 2023, while the DTC segment lost about **$1.6 billion** (adjusted OIBDA). We also looked at the older skew of CBS and traditional TV audiences." },
+        {
+          type: "table",
+          numeric: [1],
+          head: ["Figure", "Value", "Source cited in the deck"],
+          rows: [
+            ["TV Media share of FY2023 revenue", "~68%", "Original team deck"],
+            ["Direct-to-Consumer share", "~22%", "Original team deck"],
+            ["Paramount+ subscribers, Q4 2023", "67.5M", "Paramount data sheet"],
+            ["FY2023 DTC adjusted OIBDA loss", "~$1.6B", "Paramount data sheet (DTC includes Pluto TV)"],
+          ],
+        },
+        { type: "materials", items: [{ id: "paramount-deck", page: 4, pages: "4–5", note: "revenue mix and the financial constraint" }] },
         { type: "p", text: "The strategic question: how to prepare for future streaming audiences while respecting the importance of the existing business. This is a historical project, not a description of Paramount today." },
       ],
     },
@@ -89,7 +101,8 @@ export const paramountStory: Story = {
       title: "A younger-audience, original-content recommendation",
       blocks: [
         { type: "p", text: "I contributed to company and industry research, TV-versus-streaming analysis, audience demographics, competitor analysis, and identifying a content-strategy concern: heavy reliance on nostalgia, reboots, and spinoffs." },
-        { type: "p", text: "We recommended bringing in younger and fresh creative voices, developing more original storytelling, strengthening social media engagement, and focusing on future streaming audiences, and we compared that approach with competitors producing newer original content." },
+        { type: "p", text: "We recommended bringing in younger and fresh creative voices, developing more original storytelling, strengthening social media engagement, and focusing on future streaming audiences. The contrast we drew was concrete: Paramount+ reviving known worlds like *iCarly* and *Frasier*, versus Netflix building new ones like *BoJack Horseman* and *Stranger Things*. Our planning document named adults **18–34** as the priority audience." },
+        { type: "materials", items: [{ id: "paramount-deck", page: 6, pages: "6–8", note: "the content gap and the audience" }] },
       ],
     },
     {
@@ -105,7 +118,7 @@ export const paramountStory: Story = {
             ["Proposed direction", "More emphasis on new creative perspectives and original storytelling"],
             ["Competing approach", "Continued reliance on familiar formats and franchises"],
             ["Constraint", "Funding original content while managing direct-to-consumer losses"],
-            ["Implementation", "Potential divestitures and funding choices were considered"],
+            ["Implementation", "Our planning document suggested selling non-core assets to fund the shift, without a valuation or proceeds analysis"],
             ["Outcome", "An academic recommendation and presentation, not a proven financial result"],
           ],
         },
@@ -120,6 +133,9 @@ export const paramountStory: Story = {
         { type: "p", text: "Separately from the team output, I wrote a strategic-action memo recommending newer creative talent, fresh storytelling perspectives, and mentorship and knowledge-transfer approaches to improve streaming competitiveness." },
         { type: "p", text: "The mentorship piece matters because a talent strategy needs a way to develop and integrate new perspectives, not just hire them. The memo makes the recommendation; it doesn't design a full program or budget." },
         { type: "p", text: "I also helped plan and script the presentation and prepare for Q&A." },
+        { type: "h3", text: "What I added later" },
+        { type: "p", text: "For this portfolio I rebuilt the recommendation as my own deck, and extended it where the original stopped short. Each addition is marked \"proposed\" in the deck: a three-step talent pipeline (discover, support, commission), commissioning criteria for new concepts, staged funding that redirects part of the development budget, a first-year plan, and a scorecard built on **incremental paid starts**, **90-day paid retention**, and cost per retained subscriber." },
+        { type: "materials", items: [{ id: "paramount-deck", page: 9, pages: "9–14", note: "pipeline, funding, and scorecard (added later)" }] },
       ],
     },
     {
@@ -127,7 +143,7 @@ export const paramountStory: Story = {
       kicker: "05 · Limits and next step",
       title: "Funding and measuring the bet",
       blocks: [
-        { type: "p", text: "The analysis would be stronger with dated financial and audience exhibits, explicit alternatives, and a funding model. We didn't run primary interviews or audience tests." },
+        { type: "p", text: "The original project had dated financial exhibits but no funding model, explicit alternatives, or primary audience research. We didn't run interviews or test any concepts, and nothing here shows that original content would win or keep subscribers." },
         { type: "p", text: "A next step would be a bounded content-and-talent experiment with a defined target audience, measured by audience composition, completion, repeat viewing, and cost relative to its goal." },
         { type: "p", text: "Recommending a future direction is easier than explaining how to fund and evaluate it. A persuasive strategy has to connect audience insight with investment, implementation, and evidence that it's working." },
       ],

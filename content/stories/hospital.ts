@@ -83,6 +83,7 @@ export const hospitalStory: Story = {
         { type: "p", text: "The project had two related tasks: build a dataset that could be queried consistently, then interpret financial and operational relationships without overstating them." },
         { type: "question", text: "Which patterns stay interpretable after accounting for obvious data-quality and comparability problems?" },
         { type: "callout", tone: "limit", title: "A correction to my own paper", text: "My paper called this ratio \"operating margin\". It isn't one. I divided **net income** by **net patient revenue**. Net income includes non-operating items like investment income and contributions, and the denominator leaves out other operating revenue. So what I measured is a **net margin on patient revenue**, and that's what this page calls it. A true operating margin would use operating income over total operating revenue. I haven't rerun the analysis on that measure yet, so every number below describes the net ratio." },
+        { type: "materials", items: [{ id: "hospital-report", pages: "1–2", page: 1, note: "research question and schema" }, { id: "hospital-deck", page: 2, pages: "2", note: "why I chose the question" }] },
       ],
     },
     {
@@ -137,7 +138,7 @@ export const hospitalStory: Story = {
       kicker: "05 · Decision one",
       title: "Investigate extreme ratios before interpreting averages",
       blocks: [
-        { type: "p", text: "The first calculation produced economically implausible margins, some below −100,000,000%. Looking closer, several hospitals reported net patient revenue of 1 or other tiny values, creating explosive ratios." },
+        { type: "p", text: "The first calculation produced economically implausible margins, some below −100,000,000%. In one record I inspected, net patient revenue was **$1** against **−$129.9M** in net income. Looking closer, several hospitals reported net patient revenue of 1 or other tiny values, creating explosive ratios." },
         { type: "p", text: "I applied a **$1 million net patient revenue floor**, removed null and invalid-denominator cases, and restricted the ratio to **−1 through +1**." },
         {
           type: "table",
@@ -152,6 +153,7 @@ export const hospitalStory: Story = {
           ],
         },
         { type: "p", text: "These are analytical exclusions, not proof that every excluded record was wrong. The filter changes who the results represent. Flagging rather than dropping, or comparing several thresholds, would be good next checks." },
+        { type: "materials", items: [{ id: "hospital-report", page: 3, pages: "3–4", note: "cleaning rules and the full SQL" }, { id: "hospital-deck", page: 5, pages: "5", note: "the $1 record" }] },
       ],
     },
     {
@@ -161,6 +163,19 @@ export const hospitalStory: Story = {
       blocks: [
         { type: "p", text: "The final analysis includes only **Short-Term Hospitals**, narrowing the comparison rather than treating every hospital category as interchangeable. The final sample is **3,103 hospitals**." },
         { type: "p", text: "The tradeoff is scope: a focused sample is easier to interpret, but its statistics shouldn't be read as a summary of every hospital in the source data." },
+        { type: "p", text: "Three different sample sizes appear in the work, each tied to a specific step. Keeping them straight matters, because each figure describes a slightly different population:" },
+        {
+          type: "table",
+          numeric: [1],
+          head: ["Step", "Hospitals", "What it requires"],
+          rows: [
+            ["Financial screen", "3,123", "Short-term, net patient revenue above $1M, non-null net income, ratio within ±100%"],
+            ["Analytic sample", "3,103", "Also positive total costs and available bed-days"],
+            ["Baseline regression", "3,033", "Observations used in the three-predictor OLS; the ownership model used all 3,103"],
+          ],
+        },
+        { type: "p", text: "The distribution figures (mean, minimum, maximum) come from the screening query, which doesn't apply the cost and bed-day requirements. So they describe the 3,123, not the 3,103." },
+        { type: "materials", items: [{ id: "hospital-deck", page: 6, pages: "6", note: "the three sample sizes" }] },
       ],
     },
     {
@@ -173,8 +188,9 @@ export const hospitalStory: Story = {
           numeric: [1],
           head: ["Result", "Value", "Supported reading"],
           rows: [
-            ["Final filtered sample", "3,103", "Short-term hospitals after all exclusions"],
-            ["Mean ratio", "≈ 4.3%", "Descriptive average in this sample"],
+            ["Analytic sample", "3,103", "Short-term hospitals after all exclusions"],
+            ["Hospitals with a negative ratio", "33.8%", "1,055 of the 3,123 screened hospitals"],
+            ["Mean ratio", "≈ 4.3%", "Descriptive average in the 3,123-hospital screen"],
             ["Median ratio", "≈ 4.55%", "Close to the mean; on its own that doesn't rule out heavy tails"],
             ["Interquartile range", "−3.3% to 13.0%", "The middle half of hospitals"],
             ["Occupancy, r", "+0.197", "Weak positive association"],
@@ -182,8 +198,9 @@ export const hospitalStory: Story = {
             ["Uncompensated care ratio, r", "−0.133", "Weak negative association"],
           ],
         },
-        { type: "p", text: "Ownership mattered descriptively: proprietary partnerships averaged about 12% and proprietary corporations about 8%, while city-county and county government hospitals averaged below zero. Government hospital districts were an exception among public hospitals at about 6%. Public hospitals often serve safety-net roles, and some public subsidies may not show up in net patient revenue." },
+        { type: "p", text: "Ownership mattered descriptively, though group sizes vary widely: proprietary partnerships averaged about 12% across only 79 hospitals, while the largest group, other nonprofits, averaged 3.9% across 1,539. Proprietary corporations averaged about 8%, while city-county and county government hospitals averaged below zero. Government hospital districts were an exception among public hospitals at about 6%. Public hospitals often serve safety-net roles, and some public subsidies may not show up in net patient revenue." },
         { type: "callout", tone: "limit", title: "Reading coefficients", text: "A correlation of +0.197 is not a 19.7% increase in margin, and −0.127 is not a 12.7% reduction. These describe association, not the effect of changing anything. They don't justify telling a hospital to increase occupancy or cut labor." },
+        { type: "materials", items: [{ id: "hospital-report", page: 5, pages: "5–8", note: "distribution, ownership, correlations" }, { id: "hospital-deck", page: 7, pages: "7–9" }] },
       ],
     },
     {
@@ -212,9 +229,10 @@ export const hospitalStory: Story = {
           height: 1194,
           label: "statsmodels OLS summary · model 2",
           alt: "statsmodels OLS regression results for operating margin on occupancy rate, labor cost ratio and uncompensated ratio: R-squared 0.070, 3,033 observations, coefficients 0.1409, −0.1816 and −0.3048, all with p-values of 0.000, kurtosis 8.694.",
-          caption: "The original regression output for model 2. Note it uses 3,033 complete observations, slightly fewer than the 3,103-hospital sample, because rows missing any predictor drop out.",
+          caption: "The original regression output for model 2. It reports 3,033 observations, while the ownership model used all 3,103, so the R² comparison across models is approximate. Refitting every model on one common sample is on my list.",
         },
         { type: "p", text: "**The modest R² is the substantive finding.** These variables explain little of why hospital margins differ. The R² can't say what explains the rest. Payer mix, market power, and competition are plausible candidates I'd test next, not conclusions." },
+        { type: "materials", items: [{ id: "hospital-report", page: 9, pages: "9–15", note: "models, diagnostics, and code" }, { id: "hospital-deck", page: 10, pages: "10–12, 17", note: "model results" }] },
       ],
     },
     {

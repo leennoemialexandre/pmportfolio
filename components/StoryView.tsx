@@ -2,6 +2,7 @@ import type { Block, Story } from "@/lib/story";
 import { Rich } from "./Rich";
 import { Frame } from "./Frame";
 import { StoryToc } from "./StoryToc";
+import { MaterialChip } from "./ProjectMaterials";
 
 function BlockView({ block }: { block: Block }) {
   switch (block.type) {
@@ -73,6 +74,14 @@ function BlockView({ block }: { block: Block }) {
         <p className="big-question">
           <Rich text={block.text} />
         </p>
+      );
+    case "materials":
+      return (
+        <div className="material-chips">
+          {block.items.map((it) => (
+            <MaterialChip key={`${it.id}-${it.page ?? ""}`} {...it} />
+          ))}
+        </div>
       );
     case "figure":
       return (

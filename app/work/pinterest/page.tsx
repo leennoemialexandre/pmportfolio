@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ProjectShell } from "@/components/ProjectShell";
 import { DecisionNotes } from "@/components/DecisionNotes";
 import { PinterestModel } from "@/components/demos/PinterestModel";
+import { MaterialChip } from "@/components/ProjectMaterials";
 import { getProject } from "@/content/projects";
 import { pinterestDecisions, pinterestStory } from "@/content/stories/pinterest";
 
@@ -38,7 +39,12 @@ export default function PinterestPage() {
       experience={{
         title: "Walk the model, then push on it",
         intro: "Each step of the team's revenue chain is visible. Change an assumption to see how much the headline depends on it.",
-        content: <PinterestModel />,
+        content: (
+          <>
+            <MaterialChip id="pinterest-deck" page={12} pages="12–15" note="the original financial projections this model reproduces" />
+            <PinterestModel />
+          </>
+        ),
       }}
       decisions={{
         title: "The calls behind the recommendation",
