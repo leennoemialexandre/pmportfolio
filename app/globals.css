@@ -473,7 +473,7 @@ button { font: inherit; color: inherit; }
 .work-title { font-family: var(--font-display); font-size: clamp(1.6rem, 3.2vw, 2.5rem); font-weight: 600; letter-spacing: -0.03em; line-height: 1; }
 .work-type { display: block; margin-top: 8px; }
 .work-summary { color: var(--ink-soft); font-size: 1rem; margin: 0; }
-.work-tags { display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-end; max-width: 260px; }
+.work-tags { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
 .work-arrow {
   width: 46px; height: 46px; border-radius: 50%; border: 2px solid var(--ink);
   display: grid; place-items: center; background: var(--paper); flex: none;
@@ -485,7 +485,7 @@ button { font: inherit; color: inherit; }
   .work-link { grid-template-columns: 44px minmax(0, 1fr); gap: 8px 14px; }
   .work-summary { grid-column: 2; }
   .work-end { grid-column: 2; justify-content: space-between; }
-  .work-tags { justify-content: flex-start; max-width: none; }
+  .work-tags { align-items: flex-start; }
 }
 .empty-filter { padding: 32px 0; color: var(--ink-soft); }
 
